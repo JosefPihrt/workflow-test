@@ -14,8 +14,8 @@ jobs:
     steps:
       - name: "this step can fail"
         id: step1
-        continue-on-error: true
+        # continue-on-error: true
         run: "false"
       - name: "retry previous step"
-        if: steps.step1.outcome == 'failure'
+        if: steps.step1.outcome == 'failure' # https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
         run: "true && echo job succeeds"
