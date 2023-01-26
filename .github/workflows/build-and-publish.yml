@@ -17,5 +17,6 @@ jobs:
         # continue-on-error: true
         run: "false"
       - name: "retry previous step"
-        if: steps.step1.outcome == 'failure' # https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
+        if: failure() "Returns true when any previous step of a job fails. If you have a chain of dependent jobs, failure() returns true if any ancestor job fails."
+        # if: steps.step1.outcome == 'failure' # https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
         run: "true && echo job succeeds"
