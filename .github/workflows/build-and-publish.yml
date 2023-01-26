@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+  pull_request:
+
+jobs:
+
+  job-1:
+    name: "job that can fail"
+    runs-on: ubuntu-20.04
+    steps:
+      - run: "false || echo job fails"
+  job-2:
+    name: "run if job 1 fails"
+    if: failure()
+    runs-on: ubuntu-20.04
+    steps:
+      - run: "true && echo job succeeds"
