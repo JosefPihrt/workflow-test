@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  job-1:
+    name: "job 1"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: "this step can fail"
+        id: step1
+        continue-on-error: true
+        run: "false"
+      - name: "retry if fails"
+        # https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
+        if: steps.step1.outcome == 'failure'
+        run: "true && echo job succeeds"

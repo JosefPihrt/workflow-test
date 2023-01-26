@@ -1,0 +1,16 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  job-1:
+    name: "job 1"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: "this step can fail"
+        run: "false"
+      - name: "retry if fails"
+        # Returns true when any previous step of a job fails. If you have a chain of dependent jobs, failure() returns true if any ancestor job fails."
+        if: failure()
+        run: "true && echo job succeeds"
