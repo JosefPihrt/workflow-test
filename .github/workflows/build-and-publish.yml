@@ -12,7 +12,7 @@ jobs:
     name: "job that can fail"
     runs-on: ubuntu-20.04
     steps:
-      - run: "false || echo job fails"
+      - run: "false"
   job-2:
     name: "run if job 1 fails"
     if: failure()
