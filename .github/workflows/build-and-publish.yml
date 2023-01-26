@@ -9,14 +9,13 @@ on:
 jobs:
 
   job-1:
-    name: "job that can fail"
-    continue-on-error: true
+    name: "job 1"
     runs-on: ubuntu-20.04
     steps:
-      - run: "false"
-  job-2:
-    name: "run if job 1 fails"
-    if: failure()
-    runs-on: ubuntu-20.04
-    steps:
-      - run: "true && echo job succeeds"
+      - name: "this step can fail"
+        id: step1
+        continue-on-error: true
+        run: "false"
+      - name: "retry previous step"
+        if: steps.step1.outcome == 'failure'
+        run: "true && echo job succeeds"
